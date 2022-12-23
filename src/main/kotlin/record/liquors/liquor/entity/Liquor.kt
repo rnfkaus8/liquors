@@ -1,5 +1,6 @@
-package record.liquors.liquors.entity
+package record.liquors.liquor.entity
 
+import record.liquors.base.BaseEntityModel
 import javax.persistence.*
 
 @Entity
@@ -12,10 +13,8 @@ class Liquor(
 
     val review: String,
 
-    @ManyToOne
-    @JoinColumn(name = "name")
-    val category: LiquorCategory,
+    val category: String,
 
     @Id @GeneratedValue
     var id: Long? = null
-)
+) : BaseEntityModel()
