@@ -11,9 +11,9 @@ class Liquor(
     @Enumerated(EnumType.STRING)
     val rating: LiquorRating,
 
-    val review: String,
+    var review: String?,
 
-    val category: String,
+    var category: String?,
 
     @Id @GeneratedValue
     var id: Long? = null
