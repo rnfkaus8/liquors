@@ -16,7 +16,7 @@ class LiquorApiController(
     }
 
     @PostMapping("/liquor")
-    fun save(@RequestBody request: LiquorSaveRequest) {
-        liquorService.save(request)
+    fun save(@RequestBody request: LiquorSaveRequest): Long {
+        return liquorService.save(request)
     }
 }
