@@ -18,6 +18,11 @@ class LiquorApiController(
         return liquorService.findLiquors()
     }
 
+    @GetMapping("/liquor/{id}")
+    fun getLiquor(@PathVariable("id") id: Long): LiquorResponse {
+        return LiquorResponse.toDto(liquorService.findOne(id))
+    }
+
     @PostMapping("/liquor")
     fun save(@RequestBody @Valid request: LiquorSaveRequest): Long {
         return liquorService.save(request)
