@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import record.liquors.liquor.api.LiquorResponse
 import record.liquors.liquor.api.LiquorSaveRequest
+import record.liquors.liquor.api.LiquorUpdateRequest
 import record.liquors.liquor.entity.Liquor
 import record.liquors.liquor.entity.LiquorRating
 import record.liquors.liquor.repository.LiquorRepository
@@ -41,6 +42,26 @@ class LiquorServiceTest(
         val findLiquors = liquorService.findLiquors()
 
         assertThat(findLiquors).isEqualTo(listOf(LiquorResponse.toDto(liquor1), LiquorResponse.toDto(liquor2), LiquorResponse.toDto(liquor3)))
+    }
+
+    @Test
+    fun update() {
+        // given
+        val liquor = Liquor(name = "버팔로 트레이스", LiquorRating.VERY_GOOD, review = "review", category = "cate")
+        liquorRepository.save(liquor)
+
+        // when
+        val updateLiquorId = liquorService.update(
+            liquor.id!!,
+            LiquorUpdateRequest(name = "메이커스 마크", rating = LiquorRating.VERY_GOOD, review = null, category = null)
+        )
+
+        val findUpdateLiquor = liquorService.findOne(updateLiquorId)
+        println(findUpdateLiquor.review)
+        println(findUpdateLiquor.category)
+        // then
+        assertThat(liquor.id!!).isEqualTo(updateLiquorId)
+        assertThat(findUpdateLiquor.name).isEqualTo("메이커스 마크")
     }
 
 
