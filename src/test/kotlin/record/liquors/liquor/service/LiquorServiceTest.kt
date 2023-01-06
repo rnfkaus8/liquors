@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.data.domain.PageRequest
 import record.liquors.liquor.api.LiquorResponse
 import record.liquors.liquor.api.LiquorSaveRequest
 import record.liquors.liquor.api.LiquorUpdateRequest
@@ -39,9 +40,9 @@ class LiquorServiceTest(
         liquorRepository.save(liquor2)
         liquorRepository.save(liquor3)
 
-        val findLiquors = liquorService.findLiquors()
+        val findLiquors = liquorService.findLiquors(PageRequest.of(0, 2))
 
-        assertThat(findLiquors).isEqualTo(listOf(LiquorResponse.toDto(liquor1), LiquorResponse.toDto(liquor2), LiquorResponse.toDto(liquor3)))
+        assertThat(findLiquors).isEqualTo(listOf(LiquorResponse.toDto(liquor1), LiquorResponse.toDto(liquor2)))
     }
 
     @Test
