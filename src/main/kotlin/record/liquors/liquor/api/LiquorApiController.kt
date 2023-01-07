@@ -1,5 +1,6 @@
 package record.liquors.liquor.api
 
+import org.springframework.data.domain.PageRequest
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -14,8 +15,8 @@ class LiquorApiController(
     val liquorService: LiquorService
 ) {
     @GetMapping("/liquors")
-    fun getLiquorList(): List<LiquorResponse> {
-        return liquorService.findLiquors()
+    fun getLiquorList(page: Int, size: Int): List<LiquorResponse> {
+        return liquorService.findLiquors(PageRequest.of(page,size))
     }
 
     @GetMapping("/liquor/{id}")
