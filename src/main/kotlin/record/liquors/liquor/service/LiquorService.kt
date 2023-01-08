@@ -1,5 +1,7 @@
 package record.liquors.liquor.service
 
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -30,8 +32,8 @@ class LiquorService(
     return liquor.get()
   }
 
-  fun findLiquors(pageable: Pageable): List<LiquorResponse> {
-    return liquorRepository.findAll(pageable).stream().map { liquor -> LiquorResponse.toDto(liquor) }.toList()
+  fun findLiquors(pageable: Pageable): Page<LiquorResponse> {
+    return PageImpl(liquorRepository.findAll(pageable).stream().map { liquor -> LiquorResponse.toDto(liquor) }.toList())
   }
 
   @Transactional
