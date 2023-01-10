@@ -61,7 +61,19 @@ class LiquorApiControllerTest(
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk)
+    }
 
+    @Test
+    fun findAll() {
+        val liquor1 = Liquor(name = "버팔로 트레이스", LiquorRating.VERY_GOOD, review = "review", category = "cate")
+        liquorRepository.save(liquor1)
+        liquorRepository.flush()
+        val liquor2 = Liquor(name = "버팔로 트레이스", LiquorRating.VERY_GOOD, review = "review", category = "cate")
+        liquorRepository.save(liquor2)
+        liquorRepository.flush()
+        val liquor3 = Liquor(name = "버팔로 트레이스", LiquorRating.VERY_GOOD, review = "review", category = "cate")
+        liquorRepository.save(liquor3)
+        liquorRepository.flush()
     }
 
 }
