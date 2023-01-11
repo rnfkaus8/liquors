@@ -14,12 +14,14 @@ class Liquor(
 
     var review: String?,
 
-    var category: String?,
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    var category: LiquorCategory,
 
     @Id @GeneratedValue
     var id: Long? = null
 ) : BaseEntityModel() {
-    fun update(name: String, rating: LiquorRating, review: String?, category: String?) {
+    fun update(name: String, rating: LiquorRating, review: String?, category: LiquorCategory) {
         this.name = name
         this.rating = rating
         this.review = review

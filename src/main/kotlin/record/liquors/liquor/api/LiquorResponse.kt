@@ -1,6 +1,7 @@
 package record.liquors.liquor.api
 
 import record.liquors.liquor.entity.Liquor
+import record.liquors.liquor.entity.LiquorCategory
 import record.liquors.liquor.entity.LiquorRating
 
 data class LiquorResponse(
@@ -10,7 +11,7 @@ data class LiquorResponse(
 
     var review: String?,
 
-    var category: String?,
+    var category: LiquorCategory,
 
     var id: Long? = null
 ) {

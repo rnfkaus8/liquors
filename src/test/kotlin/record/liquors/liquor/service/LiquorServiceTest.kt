@@ -1,7 +1,6 @@
 package record.liquors.liquor.service
 
 import org.assertj.core.api.Assertions.*
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
@@ -54,7 +53,7 @@ class LiquorServiceTest(
         // when
         val updateLiquorId = liquorService.update(
             liquor.id!!,
-            LiquorUpdateRequest(name = "메이커스 마크", rating = LiquorRating.VERY_GOOD, review = null, category = null)
+            LiquorUpdateRequest(name = "메이커스 마크", rating = LiquorRating.VERY_GOOD, review = null, categoryId = null)
         )
 
         val findUpdateLiquor = liquorService.findOne(updateLiquorId)

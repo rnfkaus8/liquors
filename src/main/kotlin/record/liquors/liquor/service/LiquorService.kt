@@ -9,27 +9,30 @@ import record.liquors.liquor.api.LiquorResponse
 import record.liquors.liquor.api.LiquorSaveRequest
 import record.liquors.liquor.api.LiquorUpdateRequest
 import record.liquors.liquor.entity.Liquor
+import record.liquors.liquor.repository.LiquorCategoryRepository
 import record.liquors.liquor.repository.LiquorRepository
-import java.util.NoSuchElementException
-import kotlin.streams.toList
+import kotlin.NoSuchElementException
 
 @Service
 class LiquorService(
-  val liquorRepository: LiquorRepository
+  val liquorRepository: LiquorRepository,
+  val liquorCategoryRepository: LiquorCategoryRepository
 ) {
   @Transactional
   fun save(request: LiquorSaveRequest): Long {
-    val liquor = LiquorSaveRequest.toEntity(request)
+    val liquor = Liquor(
+      name = request.name,
+      rating = request.rating,
+      review = request.review,
+      category = liquorCategoryRepository.findById(request.categoryId)
+        .orElseThrow { throw NoSuchElementException("liquor category not found") }
+    )
     liquorRepository.save(liquor)
     return liquor.id!!
   }
 
   fun findOne(id: Long): Liquor {
-    val liquor = liquorRepository.findById(id)
-    if (liquor.isEmpty) {
-      throw NoSuchElementException("liquor not found")
-    }
-    return liquor.get()
+    return liquorRepository.findById(id).orElseThrow { throw NoSuchElementException("liquor not found") }
   }
 
   fun findLiquors(pageable: Pageable): Page<LiquorResponse> {
@@ -38,19 +41,13 @@ class LiquorService(
 
   @Transactional
   fun update(id: Long, request: LiquorUpdateRequest): Long {
-    val liquorOptional = liquorRepository.findById(id)
-    if (liquorOptional.isEmpty) {
-      throw NoSuchElementException("liquor not found")
-    }
-
-    val liquor = liquorOptional.get()
-    liquor.update(
+    liquorRepository.findById(id).orElseThrow { throw NoSuchElementException("liquor not found") }.update(
       name = request.name,
       rating = request.rating,
       review = request.review,
-      category = request.category
+      category = liquorCategoryRepository.findById(request.categoryId)
+        .orElseThrow { throw NoSuchElementException("liquor category not found") }
     )
-
     return id
   }
 }

@@ -9,5 +9,5 @@ data class LiquorUpdateRequest(
   @NotBlank
   val rating: LiquorRating,
   var review: String?,
-  var category: String?,
+  var categoryId: Long,
 )
