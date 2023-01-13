@@ -14,6 +14,7 @@ import record.liquors.liquor.repository.LiquorRepository
 import kotlin.NoSuchElementException
 
 @Service
+@Transactional(readOnly = true)
 class LiquorService(
   val liquorRepository: LiquorRepository,
   val liquorCategoryRepository: LiquorCategoryRepository
