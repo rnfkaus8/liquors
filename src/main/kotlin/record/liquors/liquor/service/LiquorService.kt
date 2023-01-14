@@ -12,6 +12,7 @@ import record.liquors.liquor.entity.Liquor
 import record.liquors.liquor.repository.LiquorCategoryRepository
 import record.liquors.liquor.repository.LiquorRepository
 import kotlin.NoSuchElementException
+import kotlin.streams.toList
 
 @Service
 @Transactional(readOnly = true)

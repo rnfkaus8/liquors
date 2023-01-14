@@ -11,19 +11,27 @@ import record.liquors.liquor.api.LiquorResponse
 import record.liquors.liquor.api.LiquorSaveRequest
 import record.liquors.liquor.api.LiquorUpdateRequest
 import record.liquors.liquor.entity.Liquor
+import record.liquors.liquor.entity.LiquorCategory
 import record.liquors.liquor.entity.LiquorRating
+import record.liquors.liquor.repository.LiquorCategoryRepository
 import record.liquors.liquor.repository.LiquorRepository
 
 @SpringBootTest
 class LiquorServiceTest(
     @Autowired val liquorService: LiquorService,
-    @Autowired val liquorRepository: LiquorRepository
+    @Autowired val liquorRepository: LiquorRepository,
+    @Autowired val liquorCategoryRepository: LiquorCategoryRepository
 ) {
 
     @Test
     fun save() {
-        val liquor = Liquor(name = "버팔로 트레이스", LiquorRating.VERY_GOOD, review = "review", category = "cate")
-        liquorService.save(LiquorSaveRequest(name = liquor.name, rating = liquor.rating, review = liquor.review, category = liquor.category))
+        val parentCategory = LiquorCategory(categoryName = "위스키")
+        val childCategory = LiquorCategory(categoryName = "버번 위스키", parent = parentCategory)
+        parentCategory.addChildCategory(childCategory)
+        liquorCategoryRepository.save(parentCategory)
+        liquorCategoryRepository.save(childCategory)
+        val liquor = Liquor(name = "버팔로 트레이스", LiquorRating.VERY_GOOD, review = "review", category = childCategory)
+        liquorService.save(LiquorSaveRequest(name = liquor.name, rating = liquor.rating, review = liquor.review, categoryId = liquor.category.id!!))
 
         val findLiquor = liquorService.findOne(liquor.id!!)
 
@@ -32,9 +40,14 @@ class LiquorServiceTest(
 
     @Test
     fun findAll() {
-        val liquor1 = Liquor(name = "버팔로 트레이스", LiquorRating.VERY_GOOD, review = "review", category = "cate")
-        val liquor2 = Liquor(name = "메이커스 마크", LiquorRating.VERY_GOOD, review = "review", category = "cate")
-        val liquor3 = Liquor(name = "와일드 터키", LiquorRating.VERY_GOOD, review = "review", category = "cate")
+        val parentCategory = LiquorCategory(categoryName = "위스키")
+        val childCategory = LiquorCategory(categoryName = "버번 위스키", parent = parentCategory)
+        parentCategory.addChildCategory(childCategory)
+        liquorCategoryRepository.save(parentCategory)
+        liquorCategoryRepository.save(childCategory)
+        val liquor1 = Liquor(name = "버팔로 트레이스", LiquorRating.VERY_GOOD, review = "review", category = childCategory)
+        val liquor2 = Liquor(name = "메이커스 마크", LiquorRating.VERY_GOOD, review = "review", category = childCategory)
+        val liquor3 = Liquor(name = "와일드 터키", LiquorRating.VERY_GOOD, review = "review", category = childCategory)
         liquorRepository.save(liquor1)
         liquorRepository.save(liquor2)
         liquorRepository.save(liquor3)
@@ -47,13 +60,18 @@ class LiquorServiceTest(
     @Test
     fun update() {
         // given
-        val liquor = Liquor(name = "버팔로 트레이스", LiquorRating.VERY_GOOD, review = "review", category = "cate")
+        val parentCategory = LiquorCategory(categoryName = "위스키")
+        val childCategory = LiquorCategory(categoryName = "버번 위스키", parent = parentCategory)
+        parentCategory.addChildCategory(childCategory)
+        liquorCategoryRepository.save(parentCategory)
+        liquorCategoryRepository.save(childCategory)
+        val liquor = Liquor(name = "버팔로 트레이스", LiquorRating.VERY_GOOD, review = "review", category = childCategory)
         liquorRepository.save(liquor)
 
         // when
         val updateLiquorId = liquorService.update(
             liquor.id!!,
-            LiquorUpdateRequest(name = "메이커스 마크", rating = LiquorRating.VERY_GOOD, review = null, categoryId = null)
+            LiquorUpdateRequest(name = "메이커스 마크", rating = LiquorRating.VERY_GOOD, review = null, categoryId = childCategory.id!!)
         )
 
         val findUpdateLiquor = liquorService.findOne(updateLiquorId)

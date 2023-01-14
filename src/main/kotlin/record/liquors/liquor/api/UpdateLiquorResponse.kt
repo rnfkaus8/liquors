@@ -1,6 +1,7 @@
 package record.liquors.liquor.api
 
 import record.liquors.liquor.entity.Liquor
+import record.liquors.liquor.entity.LiquorCategory
 import record.liquors.liquor.entity.LiquorRating
 
 data class UpdateLiquorResponse(
@@ -8,7 +9,7 @@ data class UpdateLiquorResponse(
   val name: String,
   val rating: LiquorRating,
   var review: String?,
-  var category: String?,
+  var category: LiquorCategory,
 ) {
   companion object {
     fun toDto(liquor: Liquor): UpdateLiquorResponse {

@@ -15,7 +15,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import record.liquors.liquor.entity.Liquor
+import record.liquors.liquor.entity.LiquorCategory
 import record.liquors.liquor.entity.LiquorRating
+import record.liquors.liquor.repository.LiquorCategoryRepository
 import record.liquors.liquor.repository.LiquorRepository
 import record.liquors.liquor.service.LiquorService
 
@@ -24,6 +26,8 @@ import record.liquors.liquor.service.LiquorService
 class LiquorApiControllerTest(
     @Autowired
     val liquorRepository: LiquorRepository,
+    @Autowired
+    val liquorCategoryRepository: LiquorCategoryRepository,
 
     @Autowired
     val mockMvc: MockMvc,
@@ -38,7 +42,7 @@ class LiquorApiControllerTest(
                 name = "name1",
                 rating = LiquorRating.VERY_GOOD,
                 review = null,
-                category = null
+                categoryId = 0L
             )
         )
         mockMvc.perform(
@@ -52,7 +56,12 @@ class LiquorApiControllerTest(
 
     @Test
     fun findOne() {
-        val liquor = Liquor(name = "버팔로 트레이스", LiquorRating.VERY_GOOD, review = "review", category = "cate")
+        val parentCategory = LiquorCategory(categoryName = "위스키")
+        val childCategory = LiquorCategory(categoryName = "버번 위스키", parent = parentCategory)
+        parentCategory.addChildCategory(childCategory)
+        liquorCategoryRepository.save(parentCategory)
+        liquorCategoryRepository.save(childCategory)
+        val liquor = Liquor(name = "버팔로 트레이스", LiquorRating.VERY_GOOD, review = "review", category = childCategory)
         liquorRepository.save(liquor)
         liquorRepository.flush()
 
@@ -65,13 +74,18 @@ class LiquorApiControllerTest(
 
     @Test
     fun findAll() {
-        val liquor1 = Liquor(name = "버팔로 트레이스", LiquorRating.VERY_GOOD, review = "review", category = "cate")
+        val parentCategory = LiquorCategory(categoryName = "위스키")
+        val childCategory = LiquorCategory(categoryName = "버번 위스키", parent = parentCategory)
+        parentCategory.addChildCategory(childCategory)
+        liquorCategoryRepository.save(parentCategory)
+        liquorCategoryRepository.save(childCategory)
+        val liquor1 = Liquor(name = "버팔로 트레이스", LiquorRating.VERY_GOOD, review = "review", category = childCategory)
         liquorRepository.save(liquor1)
         liquorRepository.flush()
-        val liquor2 = Liquor(name = "버팔로 트레이스", LiquorRating.VERY_GOOD, review = "review", category = "cate")
+        val liquor2 = Liquor(name = "버팔로 트레이스", LiquorRating.VERY_GOOD, review = "review", category = childCategory)
         liquorRepository.save(liquor2)
         liquorRepository.flush()
-        val liquor3 = Liquor(name = "버팔로 트레이스", LiquorRating.VERY_GOOD, review = "review", category = "cate")
+        val liquor3 = Liquor(name = "버팔로 트레이스", LiquorRating.VERY_GOOD, review = "review", category = childCategory)
         liquorRepository.save(liquor3)
         liquorRepository.flush()
     }
