@@ -12,19 +12,20 @@ class Liquor(
     @Enumerated(EnumType.STRING)
     var rating: LiquorRating,
 
-    var review: String?,
-
     @ManyToOne
     @JoinColumn(name = "category_id")
     var category: LiquorCategory,
 
+    @OneToMany
+    @JoinColumn(name = "review_id")
+    var review: MutableList<Review> = mutableListOf(),
+
     @Id @GeneratedValue
     var id: Long? = null
 ) : BaseEntityModel() {
-    fun update(name: String, rating: LiquorRating, review: String?, category: LiquorCategory) {
+    fun update(name: String, rating: LiquorRating, category: LiquorCategory) {
         this.name = name
         this.rating = rating
-        this.review = review
         this.category = category
         this.updatedAt = LocalDateTime.now()
     }
