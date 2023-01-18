@@ -10,7 +10,7 @@ class Review(
     @Lob
     var content: String,
     @Id @GeneratedValue
-    var id: Long?
+    var id: Long? = null
 ) {
     fun changeContent(content: String) {
         this.content = content
