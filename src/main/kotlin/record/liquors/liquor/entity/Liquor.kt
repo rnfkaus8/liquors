@@ -29,4 +29,8 @@ class Liquor(
         this.category = category
         this.updatedAt = LocalDateTime.now()
     }
+
+    fun addReview(review: Review) {
+        this.review.add(review)
+    }
 }
