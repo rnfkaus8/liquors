@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional
 import record.liquors.liquor.entity.Liquor
 import record.liquors.liquor.entity.LiquorCategory
 import record.liquors.liquor.entity.LiquorRating
+import record.liquors.liquor.entity.Review
 
 @SpringBootTest
 @Transactional
@@ -16,7 +17,9 @@ class LiquorRepositoryTest(
   @Autowired
   val liquorRepository: LiquorRepository,
   @Autowired
-  val liquorCategoryRepository: LiquorCategoryRepository
+  val liquorCategoryRepository: LiquorCategoryRepository,
+  @Autowired
+  val reviewRepository: ReviewRepository,
 ) {
 
   @Test
@@ -26,7 +29,6 @@ class LiquorRepositoryTest(
     val liquor = Liquor(
       name = "버팔로 트레이스",
       rating = LiquorRating.VERY_GOOD,
-      review = "버번 위스키의 입문용으로 딱이얌",
       category = liquorCategory
     )
     liquorRepository.save(liquor)
@@ -45,22 +47,23 @@ class LiquorRepositoryTest(
     parent.addChildCategory(child)
     liquorCategoryRepository.save(parent)
     liquorCategoryRepository.save(child)
+    val buffaloTraceReview = Review(content = "버번 위스키의 입문용으로 딱이얌")
+    reviewRepository.save(buffaloTraceReview)
     val buffaloTrace = Liquor(
       name = "버팔로 트레이스",
       rating = LiquorRating.VERY_GOOD,
-      review = "버번 위스키의 입문용으로 딱이얌",
       category = child
     )
+    buffaloTrace.addReview(buffaloTraceReview)
+
     val wildTurkey = Liquor(
       name = "와일드 터키",
       rating = LiquorRating.VERY_GOOD,
-      review = "버번 위스키의 입문용으로 딱이얌",
       category = child
     )
     val makersMark = Liquor(
       name = "메이커스 마크",
       rating = LiquorRating.VERY_GOOD,
-      review = "버번 위스키의 입문용으로 딱이얌",
       category = child
     )
     liquorRepository.save(buffaloTrace)
