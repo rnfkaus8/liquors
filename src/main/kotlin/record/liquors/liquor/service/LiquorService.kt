@@ -9,8 +9,10 @@ import record.liquors.liquor.api.LiquorResponse
 import record.liquors.liquor.api.LiquorSaveRequest
 import record.liquors.liquor.api.LiquorUpdateRequest
 import record.liquors.liquor.entity.Liquor
+import record.liquors.liquor.entity.Review
 import record.liquors.liquor.repository.LiquorCategoryRepository
 import record.liquors.liquor.repository.LiquorRepository
+import record.liquors.liquor.repository.ReviewRepository
 import kotlin.NoSuchElementException
 import kotlin.streams.toList
 
@@ -18,17 +20,22 @@ import kotlin.streams.toList
 @Transactional(readOnly = true)
 class LiquorService(
   val liquorRepository: LiquorRepository,
-  val liquorCategoryRepository: LiquorCategoryRepository
+  val liquorCategoryRepository: LiquorCategoryRepository,
+  val reviewRepository: ReviewRepository
 ) {
   @Transactional
   fun save(request: LiquorSaveRequest): Long {
     val liquor = Liquor(
       name = request.name,
       rating = request.rating,
-      review = request.review,
       category = liquorCategoryRepository.findById(request.categoryId)
         .orElseThrow { throw NoSuchElementException("liquor category not found") }
     )
+    if (request.review != null) {
+      val review = Review(content = request.review!!)
+      reviewRepository.save(review)
+      liquor.addReview(review = review)
+    }
     liquorRepository.save(liquor)
     return liquor.id!!
   }
@@ -46,7 +53,6 @@ class LiquorService(
     liquorRepository.findById(id).orElseThrow { throw NoSuchElementException("liquor not found") }.update(
       name = request.name,
       rating = request.rating,
-      review = request.review,
       category = liquorCategoryRepository.findById(request.categoryId)
         .orElseThrow { throw NoSuchElementException("liquor category not found") }
     )
