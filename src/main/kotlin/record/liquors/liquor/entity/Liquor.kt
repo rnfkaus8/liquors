@@ -9,6 +9,8 @@ class Liquor(
 
     var name: String,
 
+    var price: Int,
+
     @Enumerated(EnumType.STRING)
     var rating: LiquorRating,
 
@@ -23,8 +25,9 @@ class Liquor(
     @Id @GeneratedValue
     var id: Long? = null
 ) : BaseEntityModel() {
-    fun update(name: String, rating: LiquorRating, category: LiquorCategory) {
+    fun update(name: String, price: Int, rating: LiquorRating, category: LiquorCategory) {
         this.name = name
+        this.price = price
         this.rating = rating
         this.category = category
         this.updatedAt = LocalDateTime.now()
