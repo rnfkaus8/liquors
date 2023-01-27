@@ -29,6 +29,7 @@ class LiquorRepositoryTest(
     val liquor = Liquor(
       name = "버팔로 트레이스",
       rating = LiquorRating.VERY_GOOD,
+      price = 50000,
       category = liquorCategory
     )
     liquorRepository.save(liquor)
@@ -52,6 +53,7 @@ class LiquorRepositoryTest(
     val buffaloTrace = Liquor(
       name = "버팔로 트레이스",
       rating = LiquorRating.VERY_GOOD,
+      price = 50000,
       category = child
     )
     buffaloTrace.addReview(buffaloTraceReview)
@@ -59,11 +61,13 @@ class LiquorRepositoryTest(
     val wildTurkey = Liquor(
       name = "와일드 터키",
       rating = LiquorRating.VERY_GOOD,
+      price = 50000,
       category = child
     )
     val makersMark = Liquor(
       name = "메이커스 마크",
       rating = LiquorRating.VERY_GOOD,
+      price = 50000,
       category = child
     )
     liquorRepository.save(buffaloTrace)
