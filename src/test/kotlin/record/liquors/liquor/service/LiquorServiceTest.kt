@@ -33,7 +33,7 @@ class LiquorServiceTest(
         liquorCategoryRepository.save(parentCategory)
         liquorCategoryRepository.save(childCategory)
 
-        val liquor = Liquor(name = "버팔로 트레이스", LiquorRating.VERY_GOOD, category = childCategory)
+        val liquor = Liquor(name = "버팔로 트레이스", rating = LiquorRating.VERY_GOOD, price = 50000, category = childCategory)
         liquorService.save(LiquorSaveRequest(name = liquor.name, rating = liquor.rating, review = "맛있어용", categoryId = liquor.category.id!!))
 
         val findLiquor = liquorService.findOne(liquor.id!!)
@@ -49,9 +49,10 @@ class LiquorServiceTest(
         liquorCategoryRepository.save(parentCategory)
         liquorCategoryRepository.save(childCategory)
 
-        val liquor1 = Liquor(name = "버팔로 트레이스", LiquorRating.VERY_GOOD, category = childCategory)
-        val liquor2 = Liquor(name = "메이커스 마크", LiquorRating.VERY_GOOD, category = childCategory)
-        val liquor3 = Liquor(name = "와일드 터키", LiquorRating.VERY_GOOD, category = childCategory)
+        val liquor1 =
+            Liquor(name = "버팔로 트레이스", rating = LiquorRating.VERY_GOOD, price = 50000, category = childCategory)
+        val liquor2 = Liquor(name = "메이커스 마크", rating = LiquorRating.VERY_GOOD, price = 50000, category = childCategory)
+        val liquor3 = Liquor(name = "와일드 터키", rating = LiquorRating.VERY_GOOD, price = 50000, category = childCategory)
 
         liquorRepository.save(liquor1)
         liquorRepository.save(liquor2)
@@ -70,7 +71,7 @@ class LiquorServiceTest(
         parentCategory.addChildCategory(childCategory)
         liquorCategoryRepository.save(parentCategory)
         liquorCategoryRepository.save(childCategory)
-        val liquor = Liquor(name = "버팔로 트레이스", LiquorRating.VERY_GOOD, category = childCategory)
+        val liquor = Liquor(name = "버팔로 트레이스", rating = LiquorRating.VERY_GOOD, price = 50000, category = childCategory)
         liquorRepository.save(liquor)
 
         // when
