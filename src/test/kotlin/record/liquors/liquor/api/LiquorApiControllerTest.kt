@@ -37,7 +37,8 @@ class LiquorApiControllerTest(
 				name = "name1",
 				rating = LiquorRating.VERY_GOOD,
 				review = null,
-				categoryId = 0L
+				categoryId = 0L,
+				price = 50000
 			)
 		)
 		mockMvc.perform(
