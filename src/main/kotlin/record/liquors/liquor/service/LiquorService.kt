@@ -29,7 +29,8 @@ class LiquorService(
       name = request.name,
       rating = request.rating,
       category = liquorCategoryRepository.findById(request.categoryId)
-        .orElseThrow { throw NoSuchElementException("liquor category not found") }
+        .orElseThrow { throw NoSuchElementException("liquor category not found") },
+      price = request.price
     )
     if (request.review != null) {
       val review = Review(content = request.review!!)
@@ -54,7 +55,8 @@ class LiquorService(
       name = request.name,
       rating = request.rating,
       category = liquorCategoryRepository.findById(request.categoryId)
-        .orElseThrow { throw NoSuchElementException("liquor category not found") }
+        .orElseThrow { throw NoSuchElementException("liquor category not found") },
+      price = request.price
     )
     return id
   }
