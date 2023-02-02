@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.domain.PageRequest
+import org.springframework.transaction.annotation.Transactional
 import record.liquors.liquor.api.LiquorResponse
 import record.liquors.liquor.api.LiquorSaveRequest
 import record.liquors.liquor.api.LiquorUpdateRequest
@@ -15,6 +16,7 @@ import record.liquors.liquor.repository.LiquorCategoryRepository
 import record.liquors.liquor.repository.LiquorRepository
 
 @SpringBootTest
+@Transactional
 class LiquorServiceTest(
 	@Autowired val liquorService: LiquorService,
 	@Autowired val liquorRepository: LiquorRepository,
@@ -35,7 +37,8 @@ class LiquorServiceTest(
 				name = liquor.name,
 				rating = liquor.rating,
 				review = "맛있어용",
-				categoryId = liquor.category.id!!
+				categoryId = liquor.category.id!!,
+				price = liquor.price
 			)
 		)
 		
@@ -80,7 +83,7 @@ class LiquorServiceTest(
 		// when
 		val updateLiquorId = liquorService.update(
 			liquor.id!!,
-			LiquorUpdateRequest(name = "메이커스 마크", rating = LiquorRating.VERY_GOOD, categoryId = childCategory.id!!)
+			LiquorUpdateRequest(name = "메이커스 마크", rating = LiquorRating.VERY_GOOD, price = 50000, categoryId = childCategory.id!!)
 		)
 		
 		val findUpdateLiquor = liquorService.findOne(updateLiquorId)
