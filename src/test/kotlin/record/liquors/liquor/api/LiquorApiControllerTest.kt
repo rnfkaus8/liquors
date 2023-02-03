@@ -10,6 +10,8 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import org.springframework.util.LinkedMultiValueMap
+import org.springframework.util.MultiValueMap
 import record.liquors.liquor.entity.Liquor
 import record.liquors.liquor.entity.LiquorCategory
 import record.liquors.liquor.entity.LiquorRating
@@ -77,13 +79,22 @@ class LiquorApiControllerTest(
 		liquorCategoryRepository.save(childCategory)
 		val liquor1 = Liquor(name = "버팔로 트레이스", rating = LiquorRating.VERY_GOOD, price = 50000, category = childCategory)
 		liquorRepository.save(liquor1)
-		liquorRepository.flush()
 		val liquor2 = Liquor(name = "버팔로 트레이스", rating = LiquorRating.VERY_GOOD, price = 50000, category = childCategory)
 		liquorRepository.save(liquor2)
-		liquorRepository.flush()
 		val liquor3 = Liquor(name = "버팔로 트레이스", rating = LiquorRating.VERY_GOOD, price = 50000, category = childCategory)
 		liquorRepository.save(liquor3)
+
 		liquorRepository.flush()
+
+		val params = LinkedMultiValueMap<String, String>()
+		params.add("page", "0")
+		params.add("size", "10")
+		mockMvc.perform(
+			get("/liquors")
+				.params(params)
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+		).andExpect(status().isOk)
 	}
 	
 }
