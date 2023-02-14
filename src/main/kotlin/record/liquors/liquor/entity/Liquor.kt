@@ -12,9 +12,6 @@ class Liquor(
   
   var price: Int,
   
-  @Enumerated(EnumType.STRING)
-  var rating: LiquorRating,
-  
   @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "category_id")
   var category: LiquorCategory,
@@ -26,10 +23,9 @@ class Liquor(
   @Id @GeneratedValue
   var id: Long? = null
 ) : BaseEntityModel() {
-  fun update(name: String, price: Int, rating: LiquorRating, category: LiquorCategory) {
+  fun update(name: String, price: Int, category: LiquorCategory) {
     this.name = name
     this.price = price
-    this.rating = rating
     this.category = category
     this.updatedAt = LocalDateTime.now()
   }
