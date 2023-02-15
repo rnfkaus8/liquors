@@ -8,7 +8,6 @@ import record.liquors.liquor.entity.Review
 data class LiquorResponse(
     val name: String,
 
-    val rating: LiquorRating,
 
     var review: MutableList<Review>,
 
@@ -20,7 +19,6 @@ data class LiquorResponse(
         fun toDto(liquor: Liquor): LiquorResponse {
             return LiquorResponse(
                 name = liquor.name,
-                rating = liquor.rating,
                 review = liquor.review,
                 category = liquor.category,
                 id = liquor.id

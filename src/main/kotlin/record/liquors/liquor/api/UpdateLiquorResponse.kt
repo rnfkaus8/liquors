@@ -8,7 +8,6 @@ import record.liquors.liquor.entity.Review
 data class UpdateLiquorResponse(
   val id: Long,
   val name: String,
-  val rating: LiquorRating,
   var category: LiquorCategory,
 ) {
   companion object {
@@ -16,7 +15,6 @@ data class UpdateLiquorResponse(
       return UpdateLiquorResponse(
         id = liquor.id!!,
         name = liquor.name,
-        rating = liquor.rating,
         category = liquor.category,
       )
     }
