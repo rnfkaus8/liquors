@@ -9,9 +9,7 @@ data class LiquorSaveRequest(
     @NotBlank
     val name: String,
     @NotBlank
-    val rating: LiquorRating,
-    @NotBlank
     val price: Int,
-    var review: String?,
+    @NotBlank
     var categoryId: Long,
 )
