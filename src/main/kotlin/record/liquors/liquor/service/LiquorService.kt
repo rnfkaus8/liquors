@@ -27,16 +27,10 @@ class LiquorService(
   fun save(request: LiquorSaveRequest): Long {
     val liquor = Liquor(
       name = request.name,
-      rating = request.rating,
       category = liquorCategoryRepository.findById(request.categoryId)
         .orElseThrow { throw NoSuchElementException("liquor category not found") },
       price = request.price
     )
-    if (request.review != null) {
-      val review = Review(content = request.review!!)
-      reviewRepository.save(review)
-      liquor.addReview(review = review)
-    }
     liquorRepository.save(liquor)
     return liquor.id!!
   }
@@ -53,7 +47,6 @@ class LiquorService(
   fun update(id: Long, request: LiquorUpdateRequest): Long {
     liquorRepository.findById(id).orElseThrow { throw NoSuchElementException("liquor not found") }.update(
       name = request.name,
-      rating = request.rating,
       category = liquorCategoryRepository.findById(request.categoryId)
         .orElseThrow { throw NoSuchElementException("liquor category not found") },
       price = request.price
