@@ -16,8 +16,7 @@ class Liquor(
   @JoinColumn(name = "category_id")
   var category: LiquorCategory,
   
-  @OneToMany(fetch = LAZY)
-  @JoinColumn(name = "review_id")
+  @OneToMany(mappedBy = "liquor")
   var review: MutableList<Review> = mutableListOf(),
   
   @Id @GeneratedValue

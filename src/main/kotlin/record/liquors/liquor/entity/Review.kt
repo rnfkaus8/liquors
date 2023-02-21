@@ -10,6 +10,10 @@ class Review(
     @Enumerated(EnumType.STRING)
     var rating: LiquorRating,
 
+    @ManyToOne
+    @JoinColumn(name = "liquor_id")
+    var liquor: Liquor,
+
     @Id @GeneratedValue
     var id: Long? = null
 ) {
