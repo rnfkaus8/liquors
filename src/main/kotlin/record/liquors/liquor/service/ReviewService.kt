@@ -10,7 +10,7 @@ import record.liquors.liquor.repository.ReviewRepository
 class ReviewService(
     val reviewRepository: ReviewRepository
 ) {
-
+    @Transactional
     fun save(request: Review): Long {
         reviewRepository.save(request)
         return request.id!!
