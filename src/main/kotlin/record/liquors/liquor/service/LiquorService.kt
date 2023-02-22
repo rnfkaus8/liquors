@@ -21,7 +21,6 @@ import kotlin.streams.toList
 class LiquorService(
   val liquorRepository: LiquorRepository,
   val liquorCategoryRepository: LiquorCategoryRepository,
-  val reviewRepository: ReviewRepository
 ) {
   @Transactional
   fun save(request: LiquorSaveRequest): Long {
