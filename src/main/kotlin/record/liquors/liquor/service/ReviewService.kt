@@ -15,4 +15,8 @@ class ReviewService(
         reviewRepository.save(request)
         return request.id!!
     }
+
+    fun findOne(id: Long): Review {
+        return reviewRepository.findById(id).orElseThrow {  throw NoSuchElementException("review not found")}
+    }
 }
