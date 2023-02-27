@@ -19,4 +19,8 @@ class ReviewService(
     fun findOne(id: Long): Review {
         return reviewRepository.findById(id).orElseThrow {  throw NoSuchElementException("review not found")}
     }
+
+    fun findAll(): List<Review> {
+        return reviewRepository.findAll()
+    }
 }
