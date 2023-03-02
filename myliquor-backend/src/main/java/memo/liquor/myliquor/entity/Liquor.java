@@ -26,10 +26,6 @@ public class Liquor {
 
     private String imgPath;
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
     @Builder
     public Liquor(String name, Category category, String imgName, String imgPath) {
         this.name = name;
