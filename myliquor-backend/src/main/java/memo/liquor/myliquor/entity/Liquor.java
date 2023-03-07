@@ -21,22 +21,15 @@ public class Liquor {
 
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @OneToMany(mappedBy = "liquor")
+    private List<LiquorCategory> categorise = new ArrayList();
 
     @OneToMany(fetch = FetchType.LAZY)
-    private List<Review> reviews = new ArrayList<>();
-
-    private String imgName;
-
-    private String imgPath;
+    private List<Review> reviews = new ArrayList();
 
     @Builder
-    public Liquor(String name, Category category, String imgName, String imgPath) {
+    public Liquor(String name, List<LiquorCategory> categorise) {
         this.name = name;
-        this.category = category;
-        this.imgName = imgName;
-        this.imgPath = imgPath;
+        this.categorise.addAll(categorise);
     }
 }

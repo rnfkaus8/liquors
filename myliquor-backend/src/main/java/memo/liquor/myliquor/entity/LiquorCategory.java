@@ -5,20 +5,19 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Category {
-
+public class LiquorCategory {
     @Id
     @GeneratedValue
-    @Column(name = "category_id")
     private Long id;
 
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "liquor_id")
+    private Liquor liquor;
 
-    @OneToMany(mappedBy = "category")
-    private List<LiquorCategory> liquors;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 }
