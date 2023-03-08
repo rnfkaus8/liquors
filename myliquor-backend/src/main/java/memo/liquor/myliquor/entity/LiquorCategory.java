@@ -2,6 +2,7 @@ package memo.liquor.myliquor.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -20,4 +21,10 @@ public class LiquorCategory {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @Builder
+    public LiquorCategory(Liquor liquor, Category category) {
+        this.liquor = liquor;
+        this.category = category;
+    }
 }
