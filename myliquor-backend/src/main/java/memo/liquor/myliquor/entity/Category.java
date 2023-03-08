@@ -2,6 +2,7 @@ package memo.liquor.myliquor.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,4 +22,9 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     private List<LiquorCategory> liquors;
+
+    @Builder
+    public Category(String name) {
+        this.name = name;
+    }
 }
