@@ -28,8 +28,7 @@ public class Liquor {
     private List<Review> reviews = new ArrayList();
 
     @Builder
-    public Liquor(String name, List<LiquorCategory> categorise) {
+    public Liquor(String name) {
         this.name = name;
-        this.categorise.addAll(categorise);
     }
 }
