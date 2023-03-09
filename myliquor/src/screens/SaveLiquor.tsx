@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Text, View} from 'react-native';
 import axios from 'axios';
 
@@ -8,14 +8,15 @@ interface Category {
 }
 
 const SaveLiquor: React.FC = () => {
+  const [categories, setCategories] = useState<Category[]>();
+
   const fetchCategories = useCallback(async () => {
     try {
       const response = await axios.get<Category[]>(
         `http://127.0.0.1:8080/categories`,
       );
 
-      console.log('status', response.status);
-      console.log('data', response.data);
+      setCategories(response.data);
     } catch (err) {
       if (err instanceof Error) {
         console.log(err.message);
@@ -25,9 +26,9 @@ const SaveLiquor: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    console.log('hi');
     fetchCategories();
-  }, [fetchCategories]);
+  }, []);
+
   return (
     <View>
       <Text>내가 마신 주류를 저장하는 페이지입니당</Text>
