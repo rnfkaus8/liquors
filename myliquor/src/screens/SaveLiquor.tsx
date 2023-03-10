@@ -32,6 +32,14 @@ const SaveLiquor: React.FC = () => {
   return (
     <View>
       <Text>내가 마신 주류를 저장하는 페이지입니당</Text>
+      {categories &&
+        categories.map((category) => {
+          return (
+            <View key={category.id}>
+              <Text>{category.name}</Text>
+            </View>
+          );
+        })}
     </View>
   );
 };
