@@ -5,6 +5,9 @@ import {AppNavigationProp, RouteName} from '../asset/navigation';
 
 const Liquor: React.FC = () => {
   const navigation = useNavigation<AppNavigationProp>();
+  
+  const handlePressNavigateToSaveLiquor = () => navigation.navigate(RouteName.SaveLiquor);
+
   return (
     <View>
       <Text>홈 화면</Text>
@@ -14,7 +17,7 @@ const Liquor: React.FC = () => {
       </Text>
       <Button
         title="주류 추가 페이지 이동"
-        onPress={() => navigation.navigate(RouteName.SaveLiquor)}
+        onPress={handlePressNavigateToSaveLiquor}
       />
     </View>
   );
