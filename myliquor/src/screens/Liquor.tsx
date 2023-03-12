@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from "react";
 import {Button, Text, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {AppNavigationProp, RouteName} from '../asset/navigation';
@@ -6,7 +6,7 @@ import {AppNavigationProp, RouteName} from '../asset/navigation';
 const Liquor: React.FC = () => {
   const navigation = useNavigation<AppNavigationProp>();
   
-  const handlePressNavigateToSaveLiquor = () => navigation.navigate(RouteName.SaveLiquor);
+  const handlePressNavigateToSaveLiquor = useCallback(() => navigation.navigate(RouteName.SaveLiquor), []);
 
   return (
     <View>
