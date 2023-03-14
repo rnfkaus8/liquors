@@ -14,21 +14,24 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Liquor {
 
-    @Id
-    @GeneratedValue
-    @Column(name = "liquor_id")
-    private Long id;
+  @Id
+  @GeneratedValue
+  @Column(name = "liquor_id")
+  private Long id;
 
-    private String name;
+  private String name;
 
-    @OneToMany(mappedBy = "liquor")
-    private List<LiquorCategory> categorise = new ArrayList();
+  @ManyToOne
+  @JoinColumn(name = "category_id")
+  private Category category;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Review> reviews = new ArrayList();
 
-    @Builder
-    public Liquor(String name) {
-        this.name = name;
-    }
+  @OneToMany(fetch = FetchType.LAZY)
+  private List<Review> reviews = new ArrayList();
+
+  @Builder
+  public Liquor(String name, Category category) {
+    this.name = name;
+    this.category = category;
+  }
 }
