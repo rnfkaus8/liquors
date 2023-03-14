@@ -31,6 +31,7 @@ module.exports = {
     'react/display-name': 'off',
     'react/prop-types': 'off',
     'prettier/prettier': 'error',
+    'react-hooks/exhaustive-deps': 'error',
   },
   settings: {
     react: {
