@@ -1,6 +1,8 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Text, View} from 'react-native';
 import axios from 'axios';
+import {Button, RadioButton, TextInput} from 'react-native-paper';
+import liquor from './Liquor';
 
 interface Category {
   id: number;
@@ -9,6 +11,8 @@ interface Category {
 
 const SaveLiquor: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>();
+  const [checkedCategoryId, setCheckedCategoryId] = useState<number>();
+  const [liquorName, setLiquorName] = useState<string>('');
 
   const fetchCategories = useCallback(async () => {
     try {
@@ -29,17 +33,49 @@ const SaveLiquor: React.FC = () => {
     fetchCategories();
   }, []);
 
+  useEffect(() => {
+    console.log(checkedCategoryId);
+  }, [checkedCategoryId]);
+
+  const handlePressSubmit = useCallback(async () => {
+    await axios.post(`http://127.0.0.1:8080/liquor`, {
+      name: liquorName,
+      categoryId: checkedCategoryId,
+    });
+  }, [liquorName, checkedCategoryId]);
+
   return (
     <View>
-      <Text>내가 마신 주류를 저장하는 페이지입니당</Text>
+      <TextInput
+        placeholder="주류명 적으시오"
+        value={liquorName}
+        onChangeText={setLiquorName}
+      />
       {categories &&
         categories.map((category) => {
           return (
-            <View key={category.id}>
+            <View
+              key={category.id}
+              style={{flexDirection: 'row', alignItems: 'center'}}
+            >
+              <RadioButton
+                value={category.name}
+                status={
+                  checkedCategoryId === category.id ? 'checked' : 'unchecked'
+                }
+                onPress={() => {
+                  setCheckedCategoryId(category.id);
+                  console.log(category.name);
+                  console.log(category.id);
+                }}
+              />
               <Text>{category.name}</Text>
             </View>
           );
         })}
+      <Button mode="contained" onPress={handlePressSubmit}>
+        저장하기
+      </Button>
     </View>
   );
 };
