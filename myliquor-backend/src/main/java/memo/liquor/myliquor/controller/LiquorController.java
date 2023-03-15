@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import memo.liquor.myliquor.entity.Category;
 import memo.liquor.myliquor.entity.Liquor;
 import memo.liquor.myliquor.repository.CategoryRepository;
-import memo.liquor.myliquor.repository.LiquorRepository;
+import memo.liquor.myliquor.service.LiquorService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +17,7 @@ import java.util.List;
 public class LiquorController {
 
   private final CategoryRepository categoryRepository;
-  private final LiquorRepository liquorRepository;
+  private final LiquorService liquorService;
 
   @GetMapping("/categories")
   public List<Category> findAllCategories() {
@@ -25,11 +25,8 @@ public class LiquorController {
   }
 
   @PostMapping("/liquor")
-  public Long saveLiquor(@RequestBody SaveLiquorRequest request) {
-    Category findCategory = categoryRepository.findById(request.getCategoryId()).get();
-    Liquor liquor = Liquor.builder().name(request.getName()).category(findCategory).build();
-    liquorRepository.save(liquor);
-    return liquor.getId();
+  public Liquor saveLiquor(@RequestBody SaveLiquorRequest request) {
+    return liquorService.save(request);
   }
 
 
