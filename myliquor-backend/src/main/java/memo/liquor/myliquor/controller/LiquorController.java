@@ -2,7 +2,6 @@ package memo.liquor.myliquor.controller;
 
 import lombok.RequiredArgsConstructor;
 import memo.liquor.myliquor.entity.Category;
-import memo.liquor.myliquor.entity.Liquor;
 import memo.liquor.myliquor.repository.CategoryRepository;
 import memo.liquor.myliquor.service.LiquorService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +24,7 @@ public class LiquorController {
   }
 
   @PostMapping("/liquor")
-  public Liquor saveLiquor(@RequestBody SaveLiquorRequest request) {
+  public SavedLiquorResponse saveLiquor(@RequestBody SaveLiquorRequest request) {
     return liquorService.save(request);
   }
 
