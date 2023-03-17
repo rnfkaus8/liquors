@@ -28,5 +28,9 @@ public class LiquorController {
     return liquorService.save(request);
   }
 
+  @GetMapping("/liquors")
+  public List<LiquorResponse> getLiquors() {
+    return liquorService.findAll();
+  }
 
 }
