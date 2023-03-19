@@ -19,7 +19,7 @@ public class LiquorService {
   private final CategoryRepository categoryRepository;
 
   public SavedLiquorResponse save(SaveLiquorRequest request) {
-    Category findCategory = categoryRepository.findById(request.getCategoryId()).orElseThrow(() -> new IllegalStateException("카테고리가 없습니다"));
+    Category findCategory = categoryRepository.findById(request.getCategoryId()).orElseThrow(() -> new IllegalArgumentException("카테고리가 없습니다"));
     Liquor liquor = Liquor.builder().name(request.getName()).category(findCategory).build();
     liquorRepository.save(liquor);
     return SavedLiquorResponse.builder().id(liquor.getId()).name(liquor.getName()).build();
