@@ -2,12 +2,8 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {Text, View} from 'react-native';
 import axios from 'axios';
 import {Button, RadioButton, TextInput} from 'react-native-paper';
-import liquor from './Liquor';
-
-interface Category {
-  id: number;
-  name: string;
-}
+import liquor from './Home';
+import {Category} from '../model/Category';
 
 const SaveLiquor: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>();
@@ -33,15 +29,14 @@ const SaveLiquor: React.FC = () => {
     fetchCategories();
   }, []);
 
-  useEffect(() => {
-    console.log(checkedCategoryId);
-  }, [checkedCategoryId]);
-
   const handlePressSubmit = useCallback(async () => {
-    await axios.post(`http://127.0.0.1:8080/liquor`, {
-      name: liquorName,
-      categoryId: checkedCategoryId,
-    });
+    const axiosResponse = await axios.post<number>(
+      `http://127.0.0.1:8080/liquor`,
+      {
+        name: liquorName,
+        categoryId: checkedCategoryId,
+      },
+    );
   }, [liquorName, checkedCategoryId]);
 
   return (
@@ -65,8 +60,6 @@ const SaveLiquor: React.FC = () => {
                 }
                 onPress={() => {
                   setCheckedCategoryId(category.id);
-                  console.log(category.name);
-                  console.log(category.id);
                 }}
               />
               <Text>{category.name}</Text>
