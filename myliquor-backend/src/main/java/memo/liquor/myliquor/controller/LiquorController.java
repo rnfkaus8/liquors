@@ -24,7 +24,7 @@ public class LiquorController {
   }
 
   @PostMapping("/liquor")
-  public SavedLiquorResponse saveLiquor(@RequestBody SaveLiquorRequest request) {
+  public Long saveLiquor(@RequestBody SaveLiquorRequest request) {
     return liquorService.save(request);
   }
 

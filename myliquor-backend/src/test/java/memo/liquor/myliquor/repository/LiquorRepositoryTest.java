@@ -17,9 +17,6 @@ class LiquorRepositoryTest {
   @Autowired
   private CategoryRepository categoryRepository;
 
-  @Autowired
-  private LiquorCategoryRepository liquorCategoryRepository;
-
   @Test
   public void save() {
 
@@ -28,12 +25,6 @@ class LiquorRepositoryTest {
 
     Category category = Category.builder().name("버번").build();
     categoryRepository.save(category);
-
-    LiquorCategory liquorCategory = LiquorCategory.builder().category(category).liquor(liquor).build();
-    liquorCategoryRepository.save(liquorCategory);
-
-
-    System.out.println(liquorCategory.getLiquor().getName());
 
   }
 }
