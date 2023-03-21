@@ -3,12 +3,20 @@ import {Category} from './Category';
 export class Liquor {
   private readonly _id: number;
   private readonly _name: string;
-  private readonly _category: Category;
+  private readonly _categoryId: number;
+  private readonly _categoryName: string;
 
-  constructor(id: number, name: string, category: Category) {
+  constructor(
+    id: number,
+    name: string,
+    categoryId: number,
+    categoryName: string,
+  ) {
     this._id = id;
     this._name = name;
-    this._category = category;
+    // TODO Category 모델을 참조하게 바꿀 필요가 있어보인다.
+    this._categoryId = categoryId;
+    this._categoryName = categoryName;
   }
 
   get id(): number {
@@ -19,7 +27,11 @@ export class Liquor {
     return this._name;
   }
 
-  get category(): Category {
-    return this._category;
+  get categoryId(): number {
+    return this._categoryId;
+  }
+
+  get categoryName(): string {
+    return this._categoryName;
   }
 }
