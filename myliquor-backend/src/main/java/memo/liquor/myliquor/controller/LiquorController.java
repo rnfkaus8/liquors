@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import memo.liquor.myliquor.entity.Category;
 import memo.liquor.myliquor.repository.CategoryRepository;
 import memo.liquor.myliquor.service.LiquorService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,6 +28,11 @@ public class LiquorController {
   @GetMapping("/liquors")
   public List<LiquorResponse> getLiquors() {
     return liquorService.findAll();
+  }
+
+  @GetMapping("/liquor/{id}")
+  public LiquorResponse getLiquor(@PathVariable Long id) {
+    return liquorService.findById(id);
   }
 
 }
