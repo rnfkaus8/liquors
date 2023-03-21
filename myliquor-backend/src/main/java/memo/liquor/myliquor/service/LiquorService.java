@@ -26,7 +26,25 @@ public class LiquorService {
 
   public List<LiquorResponse> findAll() {
     return liquorRepository.findAll().stream().map((liquor) -> {
-      return LiquorResponse.builder().id(liquor.getId()).name(liquor.getName()).category(liquor.getCategory()).build();
+      return LiquorResponse
+          .builder()
+          .id(liquor.getId())
+          .name(liquor.getName())
+          .categoryId(liquor.getCategory().getId())
+          .categoryName(liquor.getCategory().getName())
+          .build();
     }).toList();
+
+  }
+
+  public LiquorResponse findById(Long id) {
+    Liquor findLiquor = liquorRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("잘못된 아이디입니다."));
+    return LiquorResponse
+        .builder()
+        .id(findLiquor.getId())
+        .name(findLiquor.getName())
+        .categoryId(findLiquor.getCategory().getId())
+        .categoryName(findLiquor.getCategory().getName())
+        .build();
   }
 }

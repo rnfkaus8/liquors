@@ -3,7 +3,6 @@ package memo.liquor.myliquor.controller;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import memo.liquor.myliquor.entity.Category;
 
 @Getter
 @Builder
@@ -11,6 +10,7 @@ import memo.liquor.myliquor.entity.Category;
 public class LiquorResponse {
   private final Long id;
   private final String name;
-  private final Category category;
-
+  // TODO CategoryResponse 객체를 추가해야할 필요성이 보인다
+  private final Long categoryId;
+  private final String categoryName;
 }
