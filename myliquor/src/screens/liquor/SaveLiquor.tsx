@@ -2,13 +2,16 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {Text, View} from 'react-native';
 import axios from 'axios';
 import {Button, RadioButton, TextInput} from 'react-native-paper';
-import liquor from './Home';
-import {Category} from '../model/Category';
+import {Category} from '../../model/Category';
+import {useNavigateToLiquorInfo} from './useNavigateToLiquorInfo';
 
 const SaveLiquor: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>();
   const [checkedCategoryId, setCheckedCategoryId] = useState<number>();
+
   const [liquorName, setLiquorName] = useState<string>('');
+
+  const navigateToLiquorInfo = useNavigateToLiquorInfo();
 
   const fetchCategories = useCallback(async () => {
     try {
@@ -27,7 +30,7 @@ const SaveLiquor: React.FC = () => {
 
   useEffect(() => {
     fetchCategories();
-  }, []);
+  }, [fetchCategories]);
 
   const handlePressSubmit = useCallback(async () => {
     const axiosResponse = await axios.post<number>(
@@ -37,6 +40,7 @@ const SaveLiquor: React.FC = () => {
         categoryId: checkedCategoryId,
       },
     );
+    navigateToLiquorInfo({liquorId: axiosResponse.data});
   }, [liquorName, checkedCategoryId]);
 
   return (
