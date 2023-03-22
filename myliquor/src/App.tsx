@@ -5,6 +5,7 @@ import Home from './screens/Home';
 import SaveLiquor from './screens/liquor/SaveLiquor';
 import {RouteName} from './asset/navigation';
 import LiquorInfo from './screens/liquor/LiquorInfo';
+import SaveReview from './screens/review/SaveReview';
 
 const Stack = createNativeStackNavigator();
 const App: React.FC = () => {
@@ -14,6 +15,7 @@ const App: React.FC = () => {
         <Stack.Screen name={RouteName.Home} component={Home} />
         <Stack.Screen name={RouteName.SaveLiquor} component={SaveLiquor} />
         <Stack.Screen name={RouteName.LiquorInfo} component={LiquorInfo} />
+        <Stack.Screen name={RouteName.SaveReview} component={SaveReview} />
       </Stack.Navigator>
     </NavigationContainer>
   );
