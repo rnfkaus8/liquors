@@ -552,9 +552,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BEMCheckBox: 5ba6e37ade3d3657b36caecc35c8b75c6c2b1a4e
-  boost: 33822b9202be3240e51605d20431570aa3a6c58e
+  boost: a7c83b31436843459a1961bfd74b96033dc77234
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
-  DoubleConversion: 9456fd505d3f9f70d786fcbe504b31de765010d9
+  DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: 48289402952f4f7a4e235de70a9a590aa0b79ef4
   FBReactNativeSpec: dd1186fd05255e3457baa2f4ca65e94c2cd1e3ac
   Flipper: 26fc4b7382499f1281eb8cb921e5c3ad6de91fe0
@@ -567,11 +567,11 @@ SPEC CHECKSUMS:
   Flipper-RSocket: d9d9ade67cbecf6ac10730304bf5607266dd2541
   FlipperKit: cbdee19bdd4e7f05472a66ce290f1b729ba3cb86
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
-  glog: 7b03cc6e801af48ac1863ffbc894e61500505f52
-  hermes-engine: 4cd4f60152400784fae79c60c1a9650793e40386
+  glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
+  hermes-engine: 2af7b7a59128f250adfd86f15aa1d5a2ecd39995
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
-  RCT-Folly: 158339bb8a6ef9d2cab2fcccaac4455da5196d85
+  RCT-Folly: 0080d0a6ebf2577475bda044aa59e2ca1f909cda
   RCTRequired: e1866f61af7049eb3d8e08e8b133abd38bc1ca7a
   RCTTypeSafety: 27c2ac1b00609a432ced1ae701247593f07f901e
   React: bb3e06418d2cc48a84f9666a576c7b38e89cd7db
