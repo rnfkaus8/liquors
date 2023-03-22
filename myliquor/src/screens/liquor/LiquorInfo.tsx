@@ -23,7 +23,7 @@ const LiquorInfo: React.FC = () => {
         console.log(err.message);
       }
     }
-  }, []);
+  }, [liquorId]);
 
   useEffect(() => {
     fetchLiquor();

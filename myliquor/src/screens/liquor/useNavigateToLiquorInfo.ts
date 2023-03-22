@@ -7,7 +7,10 @@ export interface LiquorProps {
 }
 export const useNavigateToLiquorInfo = () => {
   const navigation = useNavigation<AppNavigationProp>();
-  return useCallback(({liquorId}: LiquorProps) => {
-    navigation.navigate(RouteName.LiquorInfo, {liquorId});
-  }, []);
+  return useCallback(
+		({liquorId}: LiquorProps) => {
+			navigation.navigate(RouteName.LiquorInfo, {liquorId});
+		},
+		[navigation],
+	);
 };
