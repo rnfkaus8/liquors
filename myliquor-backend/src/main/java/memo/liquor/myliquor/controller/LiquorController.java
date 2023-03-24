@@ -1,8 +1,7 @@
 package memo.liquor.myliquor.controller;
 
 import lombok.RequiredArgsConstructor;
-import memo.liquor.myliquor.entity.Category;
-import memo.liquor.myliquor.repository.CategoryRepository;
+import memo.liquor.myliquor.service.CategoryService;
 import memo.liquor.myliquor.service.LiquorService;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,12 +11,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LiquorController {
 
-  private final CategoryRepository categoryRepository;
+  private final CategoryService categoryService;
   private final LiquorService liquorService;
 
   @GetMapping("/categories")
-  public List<Category> findAllCategories() {
-    return categoryRepository.findAll();
+  public List<CategoryResponse> findAllCategories() {
+    return categoryService.findAll();
   }
 
   @PostMapping("/liquor")
