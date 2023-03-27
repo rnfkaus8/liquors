@@ -6,11 +6,11 @@ export interface SaveReviewProps {
   liquorId: number;
 }
 export const useNavigateToLiquorInfo = () => {
-	const navigation = useNavigation<AppNavigationProp>();
-	return useCallback(
-		({liquorId}: SaveReviewProps) => {
-			navigation.navigate(RouteName.SaveReview, {liquorId});
-		},
-		[navigation],
-	);
+  const navigation = useNavigation<AppNavigationProp>();
+  return useCallback(
+    ({liquorId}: SaveReviewProps) => {
+      navigation.navigate(RouteName.SaveReview, {liquorId});
+    },
+    [navigation],
+  );
 };

@@ -16,7 +16,7 @@ const SaveLiquor: React.FC = () => {
   const fetchCategories = useCallback(async () => {
     try {
       const response = await axios.get<Category[]>(
-        `http://127.0.0.1:8080/categories`,
+        'http://127.0.0.1:8080/categories',
       );
 
       setCategories(response.data);
@@ -34,14 +34,14 @@ const SaveLiquor: React.FC = () => {
 
   const handlePressSubmit = useCallback(async () => {
     const axiosResponse = await axios.post<number>(
-      `http://127.0.0.1:8080/liquor`,
+      'http://127.0.0.1:8080/liquor',
       {
         name: liquorName,
         categoryId: checkedCategoryId,
       },
     );
     navigateToLiquorInfo({liquorId: axiosResponse.data});
-  }, [liquorName, checkedCategoryId]);
+  }, [liquorName, checkedCategoryId, navigateToLiquorInfo]);
 
   return (
     <View>

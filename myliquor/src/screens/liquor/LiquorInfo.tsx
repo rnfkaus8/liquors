@@ -1,9 +1,9 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {useRoute} from '@react-navigation/native';
-import {LiquorProps} from './useNavigateToLiquorInfo';
 import axios from 'axios';
-import {Liquor} from '../../model/Liquor';
 import {Text, View} from 'react-native';
+import {LiquorProps} from './useNavigateToLiquorInfo';
+import {Liquor} from '../../model/Liquor';
 
 const LiquorInfo: React.FC = () => {
   const route = useRoute();
