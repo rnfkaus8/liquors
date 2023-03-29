@@ -5,7 +5,7 @@ import {AppNavigationProp, RouteName} from '../../asset/navigation';
 export interface SaveReviewProps {
   liquorId: number;
 }
-export const useNavigateToLiquorInfo = () => {
+export const useNavigateToSaveReview = () => {
   const navigation = useNavigation<AppNavigationProp>();
   return useCallback(
     ({liquorId}: SaveReviewProps) => {
