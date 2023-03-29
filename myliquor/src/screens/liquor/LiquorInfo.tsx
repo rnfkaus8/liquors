@@ -4,10 +4,14 @@ import axios from 'axios';
 import {Text, View} from 'react-native';
 import {LiquorProps} from './useNavigateToLiquorInfo';
 import {Liquor} from '../../model/Liquor';
+import {Button} from 'react-native-paper';
+import {useNavigateToSaveReview} from '../review/useNavigateToSaveReview';
 
 const LiquorInfo: React.FC = () => {
   const route = useRoute();
   const {liquorId} = route.params as LiquorProps;
+
+  const navigateToSaveReview = useNavigateToSaveReview();
 
   const [data, setData] = useState<Liquor>();
 
@@ -29,10 +33,17 @@ const LiquorInfo: React.FC = () => {
     fetchLiquor();
   }, [fetchLiquor]);
 
+  const handlePressNavigateToSaveReview = useCallback(() => {
+    navigateToSaveReview({liquorId});
+  }, [liquorId, navigateToSaveReview]);
+
   return (
     <View>
       <Text>카테고리 : {data?.categoryName}</Text>
       <Text>주류 명 : {data?.name}</Text>
+      <Button mode="contained" onPress={handlePressNavigateToSaveReview}>
+        리뷰 추가
+      </Button>
     </View>
   );
 };
