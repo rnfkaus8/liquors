@@ -20,7 +20,6 @@ const LiquorInfo: React.FC = () => {
       const response = await axios.get<Liquor>(
         `http://127.0.0.1:8080/liquor/${liquorId}`,
       );
-      console.log(response.data);
       setData(response.data);
     } catch (err) {
       if (err instanceof Error) {
