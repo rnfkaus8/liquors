@@ -1,6 +1,7 @@
 package memo.liquor.myliquor.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import memo.liquor.myliquor.service.CategoryService;
 import memo.liquor.myliquor.service.LiquorService;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class LiquorController {
 
   private final CategoryService categoryService;
