@@ -21,6 +21,8 @@ public class Liquor {
 
   private String name;
 
+  private Integer price;
+
   @ManyToOne
   @JoinColumn(name = "category_id")
   private Category category;
@@ -30,8 +32,9 @@ public class Liquor {
   private List<Review> reviews = new ArrayList();
 
   @Builder
-  public Liquor(String name, Category category) {
+  public Liquor(String name, Category category, Integer price) {
     this.name = name;
     this.category = category;
+    this.price = price;
   }
 }

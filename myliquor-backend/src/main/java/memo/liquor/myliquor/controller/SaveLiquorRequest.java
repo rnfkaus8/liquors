@@ -8,4 +8,5 @@ import lombok.ToString;
 public class SaveLiquorRequest {
   private String name;
   private Long categoryId;
+  private Integer price;
 }
