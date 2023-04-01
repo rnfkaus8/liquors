@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import memo.liquor.myliquor.service.CategoryService;
 import memo.liquor.myliquor.service.LiquorService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -34,6 +35,12 @@ public class LiquorController {
   @GetMapping("/liquor/{id}")
   public LiquorResponse getLiquor(@PathVariable Long id) {
     return liquorService.findById(id);
+  }
+
+  @PostMapping("/review")
+  public void saveReview(MultipartFile image, Long liquorId) {
+    log.debug(image.getOriginalFilename());
+
   }
 
 }
