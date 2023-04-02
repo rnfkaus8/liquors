@@ -2,8 +2,8 @@ import React, {useCallback, useState} from 'react';
 import {useRoute} from '@react-navigation/native';
 import {Button, Image, View} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {SaveReviewProps} from './useNavigateToSaveReview';
 import axios from 'axios';
+import {SaveReviewProps} from './useNavigateToSaveReview';
 
 const SaveReview: React.FC = () => {
   const route = useRoute();
@@ -31,10 +31,12 @@ const SaveReview: React.FC = () => {
       return;
     }
 
-    console.log(uri);
-    console.log(fileName);
+    const formData = new FormData();
+    formData.append('image', {type: 'image/jpg', uri, name});
 
     setImageUri(uri);
+
+    axios.post();
   }, []);
 
   const handlePressCamara = useCallback(async () => {
