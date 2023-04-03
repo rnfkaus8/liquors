@@ -1,10 +1,11 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {Alert, Text, View} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {Alert, View} from 'react-native';
 import axios from 'axios';
-import {Button, RadioButton, TextInput} from 'react-native-paper';
+import {Button, TextInput} from 'react-native-paper';
+import {SelectList} from 'react-native-dropdown-select-list/index';
+import TapRating from 'react-native-ratings/dist/TapRating';
 import {Category} from '../../model/Category';
 import {useNavigateToLiquorInfo} from './useNavigateToLiquorInfo';
-import {SelectList} from 'react-native-dropdown-select-list/index';
 
 interface SeleteListData {
   key: number;
@@ -19,6 +20,7 @@ const SaveLiquor: React.FC = () => {
   const [liquorName, setLiquorName] = useState<string>('');
   const [priceText, setPriceText] = useState<string>('');
   const [price, setPrice] = useState<number | undefined>();
+  const [rating, setRating] = useState(1);
 
   const navigateToLiquorInfo = useNavigateToLiquorInfo();
 
@@ -73,10 +75,15 @@ const SaveLiquor: React.FC = () => {
         name: liquorName,
         categoryId: checkedCategoryId,
         price,
+        rating,
       },
     );
     navigateToLiquorInfo({liquorId: axiosResponse.data});
-  }, [liquorName, checkedCategoryId, price, navigateToLiquorInfo]);
+  }, [liquorName, checkedCategoryId, price, rating, navigateToLiquorInfo]);
+
+  const handleFinishRating = useCallback((val: number) => {
+    setRating(val);
+  }, []);
 
   return (
     <View>
@@ -100,6 +107,8 @@ const SaveLiquor: React.FC = () => {
           save="key"
         />
       )}
+
+      <TapRating onFinishRating={handleFinishRating} />
 
       <Button mode="contained" onPress={handlePressSubmit}>
         저장하기
