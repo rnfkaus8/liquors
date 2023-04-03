@@ -23,18 +23,22 @@ public class Liquor {
 
   private Integer price;
 
+  private Integer rating;
+
   @ManyToOne
   @JoinColumn(name = "category_id")
   private Category category;
 
-
   @OneToMany(fetch = FetchType.LAZY)
   private List<Review> reviews = new ArrayList();
 
+
   @Builder
-  public Liquor(String name, Category category, Integer price) {
+  public Liquor(Long id, String name, Integer price, Integer rating, Category category) {
+    this.id = id;
     this.name = name;
-    this.category = category;
     this.price = price;
+    this.rating = rating;
+    this.category = category;
   }
 }
