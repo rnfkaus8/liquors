@@ -1,6 +1,7 @@
 package memo.liquor.myliquor.service;
 
 import lombok.RequiredArgsConstructor;
+import memo.liquor.myliquor.controller.CategoryResponse;
 import memo.liquor.myliquor.controller.LiquorResponse;
 import memo.liquor.myliquor.controller.SaveLiquorRequest;
 import memo.liquor.myliquor.entity.Category;
@@ -25,16 +26,12 @@ public class LiquorService {
   }
 
   public List<LiquorResponse> findAll() {
-    return liquorRepository.findAll().stream().map((liquor) -> {
-      return LiquorResponse
-          .builder()
-          .id(liquor.getId())
-          .name(liquor.getName())
-          .categoryId(liquor.getCategory().getId())
-          .categoryName(liquor.getCategory().getName())
-          .build();
-    }).toList();
-
+    return liquorRepository.findAllLiquor().stream().map((liquor) -> LiquorResponse
+        .builder()
+        .id(liquor.getId())
+        .name(liquor.getName())
+        .category(CategoryResponse.builder().id(liquor.getCategory().getId()).name(liquor.getCategory().getName()).build())
+        .build()).toList();
   }
 
   public LiquorResponse findById(Long id) {
@@ -43,8 +40,7 @@ public class LiquorService {
         .builder()
         .id(findLiquor.getId())
         .name(findLiquor.getName())
-        .categoryId(findLiquor.getCategory().getId())
-        .categoryName(findLiquor.getCategory().getName())
+        .category(CategoryResponse.builder().id(findLiquor.getCategory().getId()).name(findLiquor.getName()).build())
         .build();
   }
 }
