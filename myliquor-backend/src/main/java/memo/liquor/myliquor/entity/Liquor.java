@@ -25,7 +25,7 @@ public class Liquor {
 
   private Integer rating;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "category_id")
   private Category category;
 
