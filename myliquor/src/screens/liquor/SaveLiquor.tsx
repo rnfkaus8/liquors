@@ -6,6 +6,9 @@ import {SelectList} from 'react-native-dropdown-select-list/index';
 import TapRating from 'react-native-ratings/dist/TapRating';
 import {Category} from '../../model/Category';
 import {useNavigateToLiquorInfo} from './useNavigateToLiquorInfo';
+import {useNavigation} from '@react-navigation/native';
+import {AppNavigationProp} from '../../asset/navigation';
+import {useNavigateToHome} from '../home/useNavigateToHome';
 
 interface SeleteListData {
   key: number;
@@ -23,6 +26,7 @@ const SaveLiquor: React.FC = () => {
   const [rating, setRating] = useState(1);
 
   const navigateToLiquorInfo = useNavigateToLiquorInfo();
+  const navigateToHome = useNavigateToHome();
 
   const fetchCategories = useCallback(async () => {
     try {
@@ -69,17 +73,15 @@ const SaveLiquor: React.FC = () => {
   }, []);
 
   const handlePressSubmit = useCallback(async () => {
-    const axiosResponse = await axios.post<number>(
-      'http://127.0.0.1:8080/liquor',
-      {
-        name: liquorName,
-        categoryId: checkedCategoryId,
-        price,
-        rating,
-      },
-    );
-    navigateToLiquorInfo({liquorId: axiosResponse.data});
-  }, [liquorName, checkedCategoryId, price, rating, navigateToLiquorInfo]);
+    await axios.post<number>('http://127.0.0.1:8080/liquor', {
+      name: liquorName,
+      categoryId: checkedCategoryId,
+      price,
+      rating,
+    });
+    navigateToHome();
+    // navigateToLiquorInfo({liquorId: axiosResponse.data});
+  }, [liquorName, checkedCategoryId, price, rating, navigateToHome]);
 
   const handleFinishRating = useCallback((val: number) => {
     setRating(val);
