@@ -10,7 +10,5 @@ import lombok.RequiredArgsConstructor;
 public class LiquorResponse {
   private final Long id;
   private final String name;
-  // TODO CategoryResponse 객체를 추가해야할 필요성이 보인다
-  private final Long categoryId;
-  private final String categoryName;
+  private final CategoryResponse category;
 }
