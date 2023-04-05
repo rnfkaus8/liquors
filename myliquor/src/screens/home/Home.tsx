@@ -1,12 +1,14 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {Button, Text, View} from 'react-native';
+import React, {useCallback, useState} from 'react';
+import {Button, Text, TouchableOpacity, View} from 'react-native';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {AppNavigationProp, RouteName} from '../../asset/navigation';
 import axios from 'axios';
+import {AppNavigationProp, RouteName} from '../../asset/navigation';
 import {Liquor} from '../../model/Liquor';
+import {useNavigateToLiquorInfo} from '../liquor/useNavigateToLiquorInfo';
 
 const Home: React.FC = () => {
   const navigation = useNavigation<AppNavigationProp>();
+  const navigateToLiquorInfo = useNavigateToLiquorInfo();
   const [liquors, setLiquors] = useState<Liquor[] | null>();
 
   const handlePressNavigateToSaveLiquor = useCallback(() => {
@@ -39,10 +41,16 @@ const Home: React.FC = () => {
         liquors.length > 0 &&
         liquors.map((liquor) => {
           return (
-            <View key={liquor.id} style={{borderBottomWidth: 1}}>
+            <TouchableOpacity
+              key={liquor.id}
+              style={{borderBottomWidth: 1, backgroundColor: 'yellow'}}
+              onPress={() => {
+                navigateToLiquorInfo({liquorId: liquor.id});
+              }}
+            >
               <Text>{liquor.name}</Text>
               <Text>{liquor.category.name}</Text>
-            </View>
+            </TouchableOpacity>
           );
         })}
       <View style={{height: 25}} />
