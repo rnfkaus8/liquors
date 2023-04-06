@@ -32,12 +32,23 @@ const SaveReview: React.FC = () => {
     }
 
     const formData = new FormData();
-    formData.append('image', {type: 'image/jpg', uri, name});
+    formData.append('image', {type: 'image/jpg', uri, name: fileName});
+    formData.append('liquorId', liquorId);
 
     setImageUri(uri);
 
-    axios.post();
-  }, []);
+    const response = await axios.post(
+      'http://127.0.0.1:8080/review',
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      },
+    );
+
+    console.log(response);
+  }, [liquorId]);
 
   const handlePressCamara = useCallback(async () => {
     const result = await launchCamera({mediaType: 'photo'});
