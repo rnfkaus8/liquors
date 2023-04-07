@@ -7,6 +7,7 @@ import memo.liquor.myliquor.service.LiquorService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 
 @RestController
@@ -38,8 +39,9 @@ public class LiquorController {
   }
 
   @PostMapping("/review")
-  public void saveReview(MultipartFile image, Long liquorId) {
-    log.debug(image.getOriginalFilename());
+  public void saveReview(MultipartFile image, Long liquorId) throws Exception {
+    File file = new File(image.getOriginalFilename());
+    image.transferTo(file);
 
   }
 
