@@ -40,7 +40,7 @@ public class LiquorController {
 
   @PostMapping("/review")
   public void saveReview(MultipartFile image, Long liquorId) throws Exception {
-    File file = new File(image.getOriginalFilename());
+    File file = new File("/upload/" + image.getOriginalFilename());
     image.transferTo(file);
 
   }
