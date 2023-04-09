@@ -15,8 +15,6 @@ public class Review {
     @Column(name = "review_id")
     private Long id;
 
-    private int rating;
-
     private String content;
 
     private String imgName;
@@ -27,8 +25,7 @@ public class Review {
     @JoinColumn(name = "liquor_id")
     private Liquor liquor;
 
-    public Review(int rating, String content, String imgName, String imgPath, Liquor liquor) {
-        this.rating = rating;
+    public Review(String content, String imgName, String imgPath, Liquor liquor) {
         this.content = content;
         this.imgName = imgName;
         this.imgPath = imgPath;
