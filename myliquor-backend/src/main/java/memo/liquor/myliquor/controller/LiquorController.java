@@ -3,6 +3,7 @@ package memo.liquor.myliquor.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import memo.liquor.myliquor.service.CategoryService;
+import memo.liquor.myliquor.service.FileSystemStorageService;
 import memo.liquor.myliquor.service.LiquorService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,6 +18,7 @@ public class LiquorController {
 
   private final CategoryService categoryService;
   private final LiquorService liquorService;
+  private final FileSystemStorageService fileSystemStorageService;
 
   @GetMapping("/categories")
   public List<CategoryResponse> findAllCategories() {
@@ -42,6 +44,7 @@ public class LiquorController {
   public void saveReview(MultipartFile image, Long liquorId) throws Exception {
     File file = new File("/upload/" + image.getOriginalFilename());
     image.transferTo(file);
+    fileSystemStorageService.store(image);
 
   }
 
